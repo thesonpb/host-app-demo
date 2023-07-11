@@ -1,6 +1,6 @@
 import React from "react";
 
-function Vnpt(props) {
+function Vnpt() {
   return (
     <svg
       viewBox="0 0 48 64"

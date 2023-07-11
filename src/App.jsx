@@ -1,22 +1,22 @@
 import "./App.css";
-import { Button, Layout, Menu } from "antd";
+import { Button, Layout, Menu, Popover } from "antd";
 import Logo from "./assets/Logo.jsx";
-import { Route, Switch, useHistory, useRouteMatch } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import WorkplaceIcon from "./assets/WorkplaceIcon.jsx";
 import ContractIcon from "./assets/ContractIcon.jsx";
 import ThirdPartyApp from "./components/ThirdPartyApp.jsx";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { AppContext } from "./context/AppContext.jsx";
 import Cookie from "js-cookie";
 import LoginPage from "./page/LoginPage.jsx";
-import Logout from "./assets/Logout.jsx";
+import AppIcon from "./assets/AppIcon.jsx";
+import UserIcon from "./assets/UserIcon.jsx";
 
 const { Sider, Content } = Layout;
 
 function App() {
   const { setUser, user } = useContext(AppContext);
 
-  const { path } = useRouteMatch();
   const history = useHistory();
   const menuItem = [
     {
@@ -29,21 +29,21 @@ function App() {
           label: "Econtract",
           icon: <ContractIcon />,
         },
-        {
-          key: "/workplace/jbpm",
-          label: "JBPM",
-          icon: <ContractIcon />,
-        },
+        // {
+        //   key: "/workplace/jbpm",
+        //   label: "JBPM",
+        //   icon: <ContractIcon />,
+        // },
         {
           key: "/workplace/bonita",
           label: "Bonita",
-          icon: <ContractIcon />,
+          icon: <AppIcon />,
         },
-        {
-          key: "/workplace/onedx",
-          label: "onedx",
-          icon: <ContractIcon />,
-        },
+        // {
+        //   key: "/workplace/onedx",
+        //   label: "onedx",
+        //   icon: <ContractIcon />,
+        // },
       ],
     },
   ];
@@ -96,17 +96,26 @@ function App() {
         <a className="" href="/">
           <Logo />
         </a>
-        <Button
-          className="flex items-center justify-center"
-          shape="circle"
-          onClick={() => {
-            Cookie.remove("access_token");
-            localStorage.removeItem("user");
-            setUser({});
-          }}
+        <Popover
+          placement="bottomRight"
+          content={
+            <Button
+              type="ghost"
+              className="flex items-center justify-center"
+              onClick={() => {
+                Cookie.remove("access_token");
+                localStorage.removeItem("user");
+                setUser({});
+              }}
+            >
+              Đăng xuất
+            </Button>
+          }
         >
-          <Logout />
-        </Button>
+          <div className="rounded-full bg-white h-12 w-12 flex items-center justify-center cursor-pointer">
+            <UserIcon />
+          </div>
+        </Popover>
       </header>
       <Layout style={bodyStyle}>
         <Sider style={siderStyle} width={200}>
