@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { AppContext } from "../context/AppContext.jsx";
 
-function ThirdPartyApp() {
+function ThirdPartyApp({ cookies }) {
   const { user } = useContext(AppContext);
   const { id } = useParams();
   const getSrc = (name) => {
@@ -14,43 +14,13 @@ function ThirdPartyApp() {
       // case "jbpm":
       //   return "http://10.2.25.82:8080/jbpm-casemgmt";
       case "bonita":
-        // hàm đăng nhập và set token, sessionid cho iframe
-        async function login(url = "", data = {}) {
-          const formData = new URLSearchParams();
-          Object.entries(data).forEach(([key, value]) => {
-            formData.append(key, value);
-          });
-
-          const res = await fetch(url, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-            },
-            body: formData,
-            credentials: "include", // Include credentials (cookies) in the request
-          });
-
-          const responseCookies = res.headers.get("Set-Cookie");
-          console.log(responseCookies); // Access the "Set-Cookie" header value
-          const iframe = document.getElementById(id);
-          if (iframe && iframe.contentWindow) {
-            iframe.contentWindow.document.cookie = `${responseCookies}; domain=${
-              import.meta.env.VITE_BONITA_IP
-            }/vacation-management; path=/`;
-          }
-
-          return res.json();
+        const iframe = document.getElementById(id);
+        if (iframe && iframe.contentWindow) {
+          iframe.contentWindow.document.cookie = `${cookies}; domain=${
+            import.meta.env.VITE_BONITA_IP
+          }/vacation-management; path=/`;
         }
 
-        login(
-          `${
-            import.meta.env.VITE_BONITA_IP
-          }/bonita/loginservice?redirect=false&redirectUrl=`,
-          {
-            username: "walter.bates",
-            password: "bpm",
-          }
-        );
         return `${import.meta.env.VITE_BONITA_IP}/bonita/apps/tahiti/index/`;
       // case "onedx":
       //   return "https://staging.onesme.vn/admin-portal/login";

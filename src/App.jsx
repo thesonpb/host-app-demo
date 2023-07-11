@@ -5,7 +5,7 @@ import { Route, Switch, useHistory } from "react-router-dom";
 import WorkplaceIcon from "./assets/WorkplaceIcon.jsx";
 import ContractIcon from "./assets/ContractIcon.jsx";
 import ThirdPartyApp from "./components/ThirdPartyApp.jsx";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AppContext } from "./context/AppContext.jsx";
 import Cookie from "js-cookie";
 import LoginPage from "./page/LoginPage.jsx";
@@ -16,6 +16,7 @@ const { Sider, Content } = Layout;
 
 function App() {
   const { setUser, user } = useContext(AppContext);
+  const [cookies, setCookies] = useState();
 
   const history = useHistory();
   const menuItem = [
@@ -88,6 +89,36 @@ function App() {
     }
   }, []);
 
+  useEffect(() => {
+    async function login(url = "", data = {}) {
+      const formData = new URLSearchParams();
+      Object.entries(data).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
+
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: formData,
+        credentials: "include", // Include credentials (cookies) in the request
+      });
+      setCookies(res.headers.get("Set-Cookie"));
+      return res;
+    }
+
+    login(
+      `${
+        import.meta.env.VITE_BONITA_IP
+      }/bonita/loginservice?redirect=false&redirectUrl=`,
+      {
+        username: "walter.bates",
+        password: "bpm",
+      }
+    );
+  }, [user]);
+
   if (!user?.access_token) return <LoginPage />;
 
   return (
@@ -133,7 +164,7 @@ function App() {
         <Content style={contentStyle}>
           <Switch>
             <Route path={`/workplace/:id`} exact>
-              <ThirdPartyApp />
+              <ThirdPartyApp cookies={cookies} />
             </Route>
           </Switch>
         </Content>
