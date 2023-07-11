@@ -47,8 +47,8 @@ function ThirdPartyApp() {
             import.meta.env.VITE_BONITA_IP
           }/bonita/loginservice?redirect=false&redirectUrl=`,
           {
-            username: "walter.bates",
-            password: "bpm",
+            username: "tech_user",
+            password: "secret",
           }
         );
         return `${import.meta.env.VITE_BONITA_IP}/vacation-management`;
