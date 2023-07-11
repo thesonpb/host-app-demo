@@ -47,11 +47,11 @@ function ThirdPartyApp() {
             import.meta.env.VITE_BONITA_IP
           }/bonita/loginservice?redirect=false&redirectUrl=`,
           {
-            username: "tech_user",
-            password: "secret",
+            username: "walter.bates",
+            password: "bpm",
           }
         );
-        return `${import.meta.env.VITE_BONITA_IP}/vacation-management`;
+        return `${import.meta.env.VITE_BONITA_IP}/bonita/apps/tahiti/index/`;
       // case "onedx":
       //   return "https://staging.onesme.vn/admin-portal/login";
       default:
