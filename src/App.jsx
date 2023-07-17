@@ -11,6 +11,8 @@ import Cookie from "js-cookie";
 import LoginPage from "./page/LoginPage.jsx";
 import AppIcon from "./assets/AppIcon.jsx";
 import UserIcon from "./assets/UserIcon.jsx";
+import EmployeeIcon from "./assets/EmployeeIcon";
+import EmployeeManagement from "./components/EmployeeManagement";
 
 const { Sider, Content } = Layout;
 
@@ -47,6 +49,7 @@ function App() {
         // },
       ],
     },
+    { key: "/employee", label: "Quản lý nhân viên", icon: <EmployeeIcon /> },
   ];
 
   const headerStyle = {
@@ -165,6 +168,9 @@ function App() {
           <Switch>
             <Route path={`/workplace/:id`} exact>
               <ThirdPartyApp cookies={cookies} />
+            </Route>
+            <Route path={`/employee`} exact>
+              <EmployeeManagement />
             </Route>
           </Switch>
         </Content>
