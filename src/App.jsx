@@ -38,6 +38,16 @@ function App() {
         //   icon: <ContractIcon />,
         // },
         {
+          key: "/workplace/ekyc",
+          label: "VNPT eKYC",
+          icon: <AppIcon />,
+        },
+        // {
+        //   key: "/workplace/salesman",
+        //   label: "Salesman",
+        //   icon: <AppIcon />,
+        // },
+        {
           key: "/workplace/bonita",
           label: "Bonita",
           icon: <AppIcon />,

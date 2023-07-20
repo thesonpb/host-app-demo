@@ -8,7 +8,11 @@ function ThirdPartyApp({ cookies }) {
   const getSrc = (name) => {
     switch (name) {
       case "econtract":
-        return `https://econtract-dev.vnptit3.vn/sso?token=${user?.access_token}&subscription=26721`;
+        return `https://econtract-dev.vnptit3.vn/sso?token=${user?.access_token}&subscription=27869`;
+      case "ekyc":
+        return `https://ekyc.icenter.ai/admin-dashboard/login-onesme?token=${user?.access_token}&subscription=27870`;
+      case "salesman":
+        return `http://10.15.17.73:8000/saleman/?tokenonesme=${user?.access_token}&subscription=27868`;
       // case "formsflow":
       //   return "http://localhost:3000/task";
       // case "jbpm":
