@@ -37,13 +37,13 @@ function LoginPage() {
             },
       })
       .get("https://staging.onesme.vn/auth-server/api/users/profile")
-      .then((res) => res);
+      .then((res) => res.data);
   };
 
   const onFinish = async (value) => {
     const access = await getTokenStaging(value);
-    setUser(access);
-    const userProfile = getUserProfile(access.access_token);
+    const userProfile = await getUserProfile(access.access_token);
+    setUser({ ...access, ...userProfile });
     localStorage.setItem("user_profile", JSON.stringify(userProfile));
     localStorage.setItem("user", JSON.stringify(access));
     Cookie.set("access_token", access.access_token, {

@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { AppContext } from "../context/AppContext.jsx";
+import PageNotFound from "./PageNotFound";
 
-function ThirdPartyApp({ cookies }) {
+function ThirdPartyApp({ cookies, isAdmin }) {
   const { user } = useContext(AppContext);
   const { id } = useParams();
   const getSrc = (name) => {
@@ -13,8 +14,8 @@ function ThirdPartyApp({ cookies }) {
         return `https://ekyc.icenter.ai/admin-dashboard/login-onesme?token=${user?.access_token}&subscription=27870`;
       case "page-builder":
         return `http://10.15.17.114:3000/admin-portal/display/list?access_token=${user?.access_token}&refresh_token=${user?.refresh_token}`;
-      case "salesman":
-        return `http://10.15.17.73:8000/saleman/?tokenonesme=${user?.access_token}&subscription=27868`;
+      // case "salesman":
+      //   return `http://10.15.17.73:8000/saleman/?tokenonesme=${user?.access_token}&subscription=27868`;
       // case "formsflow":
       //   return "http://localhost:3000/task";
       // case "jbpm":
@@ -36,6 +37,11 @@ function ThirdPartyApp({ cookies }) {
   };
 
   const src = getSrc(id);
+
+  const accessDeny =
+    (isAdmin && ["ekyc", "econtract"]?.includes(id)) ||
+    (!isAdmin && id === "page-builder");
+  if (accessDeny) return <PageNotFound />;
 
   return (
     <iframe
