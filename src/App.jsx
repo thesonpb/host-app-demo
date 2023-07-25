@@ -77,7 +77,7 @@ function App() {
   ];
 
   const headerStyle = {
-    backgroundColor: "#2c3d94",
+    backgroundColor: isAdmin ? "#2c3d94" : "#666666",
     height: "104px",
     padding: "28px 32px",
     position: "fixed",
