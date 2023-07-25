@@ -52,6 +52,11 @@ function App() {
           label: "Bonita",
           icon: <AppIcon />,
         },
+        {
+          key: "/workplace/page-builder",
+          label: "Page builder",
+          icon: <AppIcon />,
+        },
         // {
         //   key: "/workplace/onedx",
         //   label: "onedx",
@@ -99,6 +104,7 @@ function App() {
     } else {
       Cookie.remove("access_token");
       localStorage.removeItem("user");
+      localStorage.removeItem("user_profile");
     }
   }, []);
 
@@ -149,6 +155,7 @@ function App() {
               onClick={() => {
                 Cookie.remove("access_token");
                 localStorage.removeItem("user");
+                localStorage.removeItem("user_profile");
                 setUser({});
               }}
             >

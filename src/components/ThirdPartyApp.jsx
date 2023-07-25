@@ -11,6 +11,8 @@ function ThirdPartyApp({ cookies }) {
         return `https://econtract-dev.vnptit3.vn/sso?token=${user?.access_token}&subscription=27869`;
       case "ekyc":
         return `https://ekyc.icenter.ai/admin-dashboard/login-onesme?token=${user?.access_token}&subscription=27870`;
+      case "page-builder":
+        return `http://10.15.17.114:3000/admin-portal/display/list?access_token=${user?.access_token}&refresh_token=${user?.refresh_token}`;
       case "salesman":
         return `http://10.15.17.73:8000/saleman/?tokenonesme=${user?.access_token}&subscription=27868`;
       // case "formsflow":

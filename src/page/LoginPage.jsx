@@ -4,6 +4,7 @@ import { Button, Form, Input } from "antd";
 import superagent from "superagent";
 import { AppContext } from "../context/AppContext.jsx";
 import Cookie from "js-cookie";
+import axios from "axios";
 
 function LoginPage() {
   const { setUser } = useContext(AppContext);
@@ -22,11 +23,30 @@ function LoginPage() {
       .then(responseBody);
   };
 
+  const getUserProfile = async (token) => {
+    return await axios
+      .create({
+        baseURL: "https://staging.onesme.vn",
+        headers: token
+          ? {
+              "Content-type": "application/json",
+              Authorization: `Bearer ${token}`,
+            }
+          : {
+              "Content-type": "application/json",
+            },
+      })
+      .get("https://staging.onesme.vn/auth-server/api/users/profile")
+      .then((res) => res);
+  };
+
   const onFinish = async (value) => {
-    const a = await getTokenStaging(value);
-    setUser(a);
-    localStorage.setItem("user", JSON.stringify(a));
-    Cookie.set("access_token", a.access_token, {
+    const access = await getTokenStaging(value);
+    setUser(access);
+    const userProfile = getUserProfile(access.access_token);
+    localStorage.setItem("user_profile", JSON.stringify(userProfile));
+    localStorage.setItem("user", JSON.stringify(access));
+    Cookie.set("access_token", access.access_token, {
       expires: 1 / 24,
       sameSite: "Lax",
     });
