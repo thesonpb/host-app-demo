@@ -21,7 +21,7 @@ const { Sider, Content } = Layout;
 function App() {
   const { setUser, user } = useContext(AppContext);
   const [cookies, setCookies] = useState();
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState();
 
   const history = useHistory();
   useEffect(() => {
@@ -152,7 +152,7 @@ function App() {
             password: "bpm",
           }
     );
-  }, [user]);
+  }, [isAdmin]);
 
   if (!user?.access_token) return <LoginPage />;
 
