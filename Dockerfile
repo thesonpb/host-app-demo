@@ -9,8 +9,8 @@ COPY dist ./dist
 
 RUN npm install -g serve
 
-# Expose port 3000 for the application
-EXPOSE 3000
+# Expose port 9999 for the application
+EXPOSE 9999
 
 # Start the application
 CMD [ "serve", "-s", "dist" ]
