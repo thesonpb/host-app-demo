@@ -13,7 +13,7 @@ function ThirdPartyApp({ cookies, isAdmin }) {
       case "ekyc":
         return `https://ekyc.icenter.ai/admin-dashboard/login-onesme?token=${user?.access_token}&subscription=27870`;
       case "page-builder":
-        return `https://onedx-report.vnpt-technology.vn:44328/admin-portal/display/list?access_token=${user?.access_token}&refresh_token=${user?.refresh_token}`;
+        return `https://onedx-report.vnpt-technology.vn:8445/admin-portal/display/list?access_token=${user?.access_token}&refresh_token=${user?.refresh_token}`;
       // case "salesman":
       //   return `http://10.15.17.73:8000/saleman/?tokenonesme=${user?.access_token}&subscription=27868`;
       // case "formsflow":
